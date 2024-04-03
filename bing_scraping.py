@@ -20,4 +20,5 @@ related_images = driver.find_elements(By.XPATH,"//img[contains(@alt, 'See relate
 
 for image in related_images:
     if image.get_attribute('src').startswith('https://'):
-        print(image.get_attribute('src'))
+        url = image.get_attribute('src').split('&')[0]
+        print(url)

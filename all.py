@@ -19,7 +19,8 @@ def bing(img_url):
     related_image_urls = []
     for image in related_images:
         if image.get_attribute('src').startswith('https://'):
-            related_image_urls.append(image.get_attribute('src'))
+            url = image.get_attribute('src').split('&')[0]
+            related_image_urls.append(url)
     return related_image_urls
 
 def google_lense(img_url):
