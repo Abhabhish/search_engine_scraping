@@ -21,7 +21,8 @@ def bing(img_url):
         if image.get_attribute('src').startswith('https://'):
             url = image.get_attribute('src').split('&')[0]
             related_image_urls.append(url)
-    return related_image_urls[0]
+            break
+    return related_image_urls
 
 def google_lense(img_url):
     driver.get(f'https://lens.google.com/uploadbyurl?url={img_url}')
@@ -32,7 +33,8 @@ def google_lense(img_url):
     for image in related_images:
         if image.get_attribute('src').startswith('https://'):
             related_image_urls.append(image.get_attribute('src'))
-    return related_image_urls[0]
+            break
+    return related_image_urls
 
 def yandex(img_url):
     driver.get(f'https://yandex.com/images/search?rpt=imageview&url={img_url}')
@@ -45,7 +47,8 @@ def yandex(img_url):
     for image in related_images:
         if image.get_attribute('src').startswith('https://'):
             related_image_urls.append(image.get_attribute('src'))
-    return related_image_urls[0]
+            break
+    return related_image_urls
 
 
 
@@ -59,18 +62,17 @@ def naver(img_url):
         if image.get_attribute('src').startswith('https://'):
             url = image.get_attribute('src').split('&')[0]
             related_image_urls.append(url)
-    return related_image_urls[0]
+            break
+    return related_image_urls
 
-def all(img_url):
-    return {
+
+img_url = 'https://articlebucketgts.s3.ap-south-1.amazonaws.com/test/4.jpeg'
+response = {
         'bing':bing(img_url),
         'google_lense':google_lense(img_url),
         'yandex':yandex(img_url),
         'naver':naver(img_url)
     }
-
-img_url = 'https://articlebucketgts.s3.ap-south-1.amazonaws.com/test/4.jpeg'
-response = all(img_url)
 
 with open('response.json','w',encoding='utf-8') as f:
     json.dump(response,f,indent=4,ensure_ascii=False)
